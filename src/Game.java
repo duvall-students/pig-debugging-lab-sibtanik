@@ -5,12 +5,12 @@ public class Game {
 	private Player player2;
 	private Random die;
 	private Spinner spinner;
-	private final String LOSER_SPIN = "grunt";
+	private final String LOSER_SPIN = "GRUNT";
 	private final int LOSER_ROLL = 1;
 	
 	public Game(){
-		Player player1 = new GUIPlayer();
-		Player player2 = new ComputerPlayer();
+		player1 = new GUIPlayer();
+		player2 = new ComputerPlayer();
 		die = new Random();
 		spinner = new Spinner();
 	}
@@ -48,19 +48,22 @@ public class Game {
 		boolean keepGoing = true;
 		printStartRoundMessage(whoseTurn);
 		while(keepGoing){
-			int roll = die.nextInt(7);
+			int roll = die.nextInt(6) + 1;
 			String spin = spinner.spin();
 			System.out.println(roll+ " "+ spin);
 			
-			if(roll == LOSER_ROLL){
-				System.out.println("Lose a turn.");
-				return 0;
-			}
-			else if(spin == LOSER_SPIN.toUpperCase()){
+			// changed the spin to .equals since it is comparing strings
+			if (spin.equals(LOSER_SPIN)){
 				System.out.println("Too bad!  Lose all your points.");
 				whoseTurn.resetScore();
 				return 0;
 			}
+			// dont want it to lose points and turn, so make it second instance
+			else if(roll == LOSER_ROLL){
+				System.out.println("Lose a turn.");
+				return 0;
+			}
+			
 			else{
 				roundScore = roundScore + roll;
 				System.out.println("Round total is currently: "+roundScore);
@@ -72,7 +75,9 @@ public class Game {
 	
 	// True if one of the players has won the game.
 	public boolean winner(){
-		return player1.hasWon() && player2.hasWon();
+		//return player1.hasWon() && player2.hasWon();
+		// doing an "and" means both of the players have won, which is impossible. so I changed it to "or"
+		return player1.hasWon() || player2.hasWon();
 	}
 	
 	/* 
