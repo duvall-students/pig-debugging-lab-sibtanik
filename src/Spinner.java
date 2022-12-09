@@ -20,8 +20,9 @@ public class Spinner {
 	 * Turn the random number into one of the spinner words 
 	 * based on the given probabilities.
 	 */
-	public String numToWord(double spinNumber){	
-		int index = 1;
+	public String numToWord(double spinNumber){
+		// index starts at 0 not 1
+		int index = 0;
 		double low = 0;
 		boolean done = false;
 		String result = "";

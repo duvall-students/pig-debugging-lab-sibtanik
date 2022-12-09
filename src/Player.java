@@ -6,6 +6,8 @@ public abstract class Player {
 	private final int WIN_SCORE = 100;
 	
 	public Player(String myName){
+		// myName was never initialized. Added it here
+		this.myName = myName;
 		myScore = 0;
 	}
 	
